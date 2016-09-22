@@ -37,8 +37,13 @@ public class UC01CadastrarEmpresa1 {
 	public void CT01UC01FBCadastra_com_sucesso() {
 		assertEquals(1,empresaDAO.adiciona(empresa));
 	}
+	@Test(expected=IllegalArgumentException.class)
+	public void CT02UC01FBCadastra_com_cnpj_invalido() {
+		empresa.setCnpj("8942423200018");
+	}
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		empresaDAO.exclui("89424232000180");
 	}
 
 
