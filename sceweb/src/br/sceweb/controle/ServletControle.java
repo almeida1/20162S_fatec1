@@ -100,6 +100,20 @@ public class ServletControle extends HttpServlet {
 			request.getRequestDispatcher(url).forward(request, response);
 			
 		}
+		if (parametro.equals("ExcluirEmpresa")) {
+			url = "/visao/FormEmpresa.jsp";
+			try {
+				resultado = excluirEmpresa(request.getParameter("txtCNPJ"));
+				logger.info("resultado do cadastra = " + resultado);
+				request.setAttribute("msg", resultado);
+				request.getRequestDispatcher(url).forward(request, response);
+			} catch (Exception e) {
+				request.setAttribute("msg", resultado);
+				request.getRequestDispatcher(url).forward(request, response);
+				logger.info("erro  = " + e.getMessage());
+
+			}
+		}
 
 	}
 
