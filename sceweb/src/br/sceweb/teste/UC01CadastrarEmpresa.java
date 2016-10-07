@@ -10,7 +10,7 @@ import org.junit.Test;
 import br.sceweb.modelo.Empresa;
 import br.sceweb.modelo.EmpresaDAO;
 
-public class UC01CadastrarEmpresa1 {
+public class UC01CadastrarEmpresa {
 
 	static EmpresaDAO empresaDAO;
 	static Empresa empresa;
