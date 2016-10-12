@@ -45,7 +45,7 @@ public class Convenio {
 		if (cnpj.length() == 14) {
 			this.cnpj = cnpj;
 		} else
-			throw new IllegalArgumentException("CNPJ inv�lido!");
+			throw new IllegalArgumentException("CNPJ invalido!");
 
 	}
 
