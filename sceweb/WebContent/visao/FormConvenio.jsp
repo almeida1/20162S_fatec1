@@ -18,8 +18,9 @@
 		document.formConvenioIncluir.submit();
 	}
 	
-	function cancelar() {
-		history.go(-1)
+	function excluir() {
+		document.formConvenioIncluir.acao.value = "ExcluirConvenio";
+		document.formConvenioIncluir.submit();
 	}
 </script>
 </head>
@@ -54,8 +55,8 @@
 					
 					<tr>
 						<td colspan=2 id="botoes" align="center">
-						<input id="botao" type=button name=btnIncluir onclick=incluir() value=Confirmar>
-						<input id="botao" type=reset name=btnCancelar onclick=cancelar() value=Cancelar>
+						<input id="botao" type=button name=btnIncluir onclick=incluir() value=Incluir>
+						<input id="botao" type=reset name=btnExcluir onclick=excluir() value=Excluir>
 					    
 					    </td>
 					</tr>

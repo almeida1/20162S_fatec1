@@ -78,7 +78,9 @@ public class ConvenioDAO {
 			ps = conn.prepareStatement("delete from convenio where empresa_cnpj = ?");
 			ps.setString(1, cnpj);
 			codigoretorno = ps.executeUpdate();
+			logger.info("convenioDAO metodo excluir -" + codigoretorno);
 		} catch (SQLException e) {
+			logger.info("convenioDAO metodo excluir -" + e.getMessage());
 			throw new RuntimeException(e);
 		}
 		return codigoretorno;

@@ -81,14 +81,14 @@ public class ServletControle extends HttpServlet {
 			try {
 				if (!cnpj.isEmpty()) {
 					empresa = consulta(cnpj);
-					if (empresa != null){
+					if (empresa != null) {
 						logger.info("consulta empresa nome da empresa  = " + empresa.getNomeDaEmpresa());
 						request.setAttribute("nomeDaEmpresa", empresa.getNomeDaEmpresa());
-					    request.setAttribute("cnpj", empresa.getCnpj());
-					    request.setAttribute("nomeFantasia", empresa.getNomeFantasia());
-					    request.setAttribute("endereco", empresa.getEndereco());
-					    request.setAttribute("telefone", empresa.getTelefone());
-					    request.setAttribute("msg", "");
+						request.setAttribute("cnpj", empresa.getCnpj());
+						request.setAttribute("nomeFantasia", empresa.getNomeFantasia());
+						request.setAttribute("endereco", empresa.getEndereco());
+						request.setAttribute("telefone", empresa.getTelefone());
+						request.setAttribute("msg", "");
 						url = "/visao/FormEmpresaResultadoDaConsulta.jsp";
 					} else {
 						request.setAttribute("msg", "cnpj invalido");
@@ -100,7 +100,7 @@ public class ServletControle extends HttpServlet {
 				logger.info(e.getMessage() + e.getCause());
 			}
 			request.getRequestDispatcher(url).forward(request, response);
-			
+
 		}
 		if (parametro.equals("ExcluirEmpresa")) {
 			url = "/visao/FormEmpresa.jsp";
@@ -119,10 +119,23 @@ public class ServletControle extends HttpServlet {
 		if (parametro.equals("IncluirConvenio")) {
 			url = "/visao/FormConvenio.jsp";
 			try {
-				resultado = cadastrarConvenio(request.getParameter("txtCNPJ"), 
-											  request.getParameter("txtDtInicio"),
-											  request.getParameter("txtDtTermino"));
+				resultado = cadastrarConvenio(request.getParameter("txtCNPJ"), request.getParameter("txtDtInicio"),
+						request.getParameter("txtDtTermino"));
 				logger.info("resultado do cadastra convenio= " + resultado);
+				request.setAttribute("msg", resultado);
+				request.getRequestDispatcher(url).forward(request, response);
+			} catch (Exception e) {
+				request.setAttribute("msg", resultado);
+				request.getRequestDispatcher(url).forward(request, response);
+				logger.info("erro  = " + e.getMessage());
+
+			}
+		}
+		if (parametro.equals("ExcluirConvenio")) {
+			url = "/visao/FormConvenio.jsp";
+			try {
+				resultado = excluirConvenio(request.getParameter("txtCNPJ"));
+				logger.info("resultado da exclusao = " + resultado);
 				request.setAttribute("msg", resultado);
 				request.getRequestDispatcher(url).forward(request, response);
 			} catch (Exception e) {
@@ -174,6 +187,24 @@ public class ServletControle extends HttpServlet {
 
 		return msg;
 	}
+
+	public String excluirConvenio(String cnpj) {
+		String msg = "";
+		int rc = 0;
+		ConvenioDAO convenioDAO = new ConvenioDAO();
+		try {
+			rc = convenioDAO.exclui(cnpj);
+			if (rc == 1)
+				msg = "excluido com sucesso";
+			else
+				msg = "erro na exclusão";
+		} catch (Exception e) {
+			msg = e.getMessage();
+		}
+
+		return msg;
+	}
+
 	public String cadastrarConvenio(String cnpj, String dataInicio, String dataTermino) {
 		String msg = "";
 		int codigoRetorno = 0;
@@ -182,7 +213,7 @@ public class ServletControle extends HttpServlet {
 		try {
 			Convenio convenio = new Convenio(cnpj, dataInicio, dataTermino);
 			codigoRetorno = convenioDAO.adiciona(convenio);
-			if (codigoRetorno == 0){
+			if (codigoRetorno == 0) {
 				msg = "erro - cadastro nao realizado ";
 			} else {
 				msg = "cadastro realizado com sucesso";
