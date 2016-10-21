@@ -17,12 +17,20 @@ public class UC01CadastrarEmpresa {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		empresaDAO = new EmpresaDAO();
-		empresa = new Empresa();
-		empresa.setNomeDaEmpresa("empresa x");
-		empresa.setCnpj("89424232000180");
-		empresa.setNomeFantasia("empresa x");
-		empresa.setEndereco("rua taquari");
-		empresa.setTelefone("2222");
+		ConstrutorDeEmpresa empresa1 = ConstrutorDeEmpresa
+				.umaEmpresa()
+				.comCNPJ("89424232000180")
+				.comNome("Casas Bahia")
+				.comNomeFantasia("Casas Bahia")
+				.comTelefone("1111111");
+				
+        empresa = empresa1.build();	
+//		//empresa = new Empresa();
+//		empresa.setNomeDaEmpresa("empresa x");
+//		empresa.setCnpj("89424232000180");
+//		empresa.setNomeFantasia("empresa x");
+//		empresa.setEndereco("rua taquari");
+//		empresa.setTelefone("2222");
 	}
 	/**
 	 * estabelece as pre-condicoes antes da execucao de cada teste
