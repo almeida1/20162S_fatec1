@@ -14,23 +14,12 @@ public class UC01CadastrarEmpresa {
 
 	static EmpresaDAO empresaDAO;
 	static Empresa empresa;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		empresaDAO = new EmpresaDAO();
-		ConstrutorDeEmpresa empresa1 = ConstrutorDeEmpresa
-				.umaEmpresa()
-				.comCNPJ("89424232000180")
-				.comNome("Casas Bahia")
-				.comNomeFantasia("Casas Bahia")
-				.comTelefone("1111111");
-				
-        empresa = empresa1.build();	
-//		//empresa = new Empresa();
-//		empresa.setNomeDaEmpresa("empresa x");
-//		empresa.setCnpj("89424232000180");
-//		empresa.setNomeFantasia("empresa x");
-//		empresa.setEndereco("rua taquari");
-//		empresa.setTelefone("2222");
+		empresa = TesteDeEmpresa.default_().constroi(); //cnpj 89424232000180
+     
 	}
 	/**
 	 * estabelece as pre-condicoes antes da execucao de cada teste
@@ -47,12 +36,11 @@ public class UC01CadastrarEmpresa {
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void CT02UC01FBCadastra_com_cnpj_invalido() {
-		empresa.setCnpj("8942423200018");
+		TesteDeEmpresa.comCnpjInvalido().constroi();
+		
 	}
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		empresaDAO.exclui("89424232000180");
 	}
-
-
 }
