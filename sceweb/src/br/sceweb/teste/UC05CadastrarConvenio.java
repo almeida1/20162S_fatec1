@@ -58,7 +58,7 @@ public class UC05CadastrarConvenio {
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void CT06UC05A3CadastrarConvenio_cnpj_invalido() {
+	public void CT05UC05A3CadastrarConvenio_cnpj_invalido() {
 		cnpj = "11111";
 		convenio.setCNPJ(cnpj);
 	}
